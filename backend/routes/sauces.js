@@ -10,7 +10,7 @@ const saucesCtrl = require('../controllers/sauces');
 
 // route GET = toutes les sauces
 router.get('/', auth, saucesCtrl.getAllSauces);
-// route POST sauce
+// route POST = créer sauce
 router.post('/', auth, multer, saucesCtrl.createSauce);
 // route GET = une sauce 
 router.get('/:id', auth, saucesCtrl.getOneSauce);
@@ -20,7 +20,7 @@ router.put('/:id', auth, multer, saucesCtrl.modifySauce);
 router.delete('/:id', auth, saucesCtrl.deleteSauce);
 
 //route POST = (dis)liker sauce
-//router.post('/:id/like', auth, saucesCtrl.likeSauce);
+router.post('/:id/like', auth, saucesCtrl.likeSauce);
 
 // export du router
 module.exports = router;

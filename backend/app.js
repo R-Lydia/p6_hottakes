@@ -1,8 +1,9 @@
 // importer express
 const express = require('express');
+const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 //const cors = require('cors');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 // importer path pour accéder au path de notre serveur
 const path = require('path');
 
@@ -14,14 +15,13 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 // enlever le deprecationWarning
-//mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', false);
 // connexion mongoose
-mongoose.connect('mongodb+srv://pyakoly:OfIabpp2RDIqjM4d@cluster0.yw8necf.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_URI_HOTTAKES,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
- 
 
 // ajouter des headers pour gérer le CORS
 app.use((req, res, next) => {
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 // accéder au corps de la requête, intercepte requêtes content-type json
 app.use(express.json());
 
-app.use(helmet());  
+//app.use(helmet());  
 //app.use(cors());
 
 // route attendue par le frontend 
