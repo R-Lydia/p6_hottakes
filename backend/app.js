@@ -2,7 +2,7 @@ require('dotenv').config();
 // importer express
 const express = require('express'); 
 const mongoose = require('mongoose');
-//const helmet = require('helmet');
+const helmet = require('helmet');
 
 // importer path pour accéder au path de notre serveur
 const path = require('path');
@@ -14,9 +14,8 @@ const userRoutes = require('./routes/user');
 // appel de la méthode pour créer une application express
 const app = express();
 
-// enlever le deprecationWarning
-mongoose.set('strictQuery', false);
 // connexion mongoose
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_URI_HOTTAKES,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -36,7 +35,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //app.use(helmet());
-//app.use(helmet({ crossOriginResourcePolicy: false }));  
+app.use(helmet({ crossOriginResourcePolicy: false }));  
 
 // route attendue par le frontend 
 app.use('/api/auth', userRoutes);
