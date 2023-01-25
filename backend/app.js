@@ -2,8 +2,8 @@ require('dotenv').config();
 // importer express
 const express = require('express'); 
 const mongoose = require('mongoose');
-//const cors = require('cors');
 //const helmet = require('helmet');
+
 // importer path pour accéder au path de notre serveur
 const path = require('path');
 
@@ -35,8 +35,8 @@ app.use((req, res, next) => {
 // accéder au corps de la requête, intercepte requêtes content-type json
 app.use(express.json());
 
-//app.use(helmet());  
-//app.use(cors());
+//app.use(helmet());
+//app.use(helmet({ crossOriginResourcePolicy: false }));  
 
 // route attendue par le frontend 
 app.use('/api/auth', userRoutes);
