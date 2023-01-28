@@ -79,7 +79,10 @@ exports.deleteSauce = (req, res, next) => {
         if (sauce.userId != req.auth.userId) {
             res.status(401).json({ message: 'Non autorisé !' });
         } else {
+            // supprimer l'image du dossier images
+            // URL d'image contient un segment /images/ on s'en sert pour séparer le nom de fichier
             const filename = sauce.imageUrl.split('/images/')[1];
+            // fonction unlink du package fs pour supprimer ce fichier, en lui passant le fichier à supprimer
             fs.unlink(`images/${filename}`, () => {
                 Sauce.deleteOne({ _id: req.params.id })
                 .then(() =>  res.status(200).json({ message: 'Sauce supprimée !' }))
